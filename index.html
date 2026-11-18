@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Manajemen Parkir</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- HALAMAN LOGIN -->
+    <div class="login-container" id="loginPage">
+        <div class="login-box">
+            <h2><span>P</span>arkir System</h2>
+            <p class="login-subtitle">Masuk ke Sistem Manajemen Parkir</p>
+            
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="contoh@gmail.com">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Minimal 4 karakter">
+            </div>
+            <button class="btn-login" onclick="loginWithEmail()">Masuk dengan Email</button>
+            
+            <div class="divider">
+                <hr>
+                <span>atau</span>
+                <hr>
+            </div>
+            
+            <button class="btn-google" onclick="loginWithGoogle()">
+                <svg class="google-icon" viewBox="0 0 24 24">
+                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                </svg>
+                Masuk dengan Google
+            </button>
+
+            <div class="error-msg" id="errorMsg"></div>
+            <div class="success-msg" id="successMsg"></div>
+        </div>
+    </div>
+
+    <!-- HALAMAN UTAMA -->
+    <div class="main-page" id="mainPage">
+        <div class="header">
+            <span>P Sistem Manajemen Parkir</span>
+            <div class="header-right">
+                <span class="user-info" id="displayUser">
+                    <span class="user-avatar" id="userAvatar">U</span>
+                    <span id="userName">Pengguna</span>
+                </span>
+                <span class="date-time">Rabu, 18 Nov 2026, 09.00.00</span>
+                <button class="btn-logout" onclick="logout()">Keluar</button>
+            </div>
+        </div>
+
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-label">KENDARAAN PARKIR</div>
+                <div class="stat-value">1</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">SISA SLOT TERSEDIA</div>
+                <div class="stat-value">99</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">TOTAL KELUAR HARI INI</div>
+                <div class="stat-value">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">PENDAPATAN HARI INI</div>
+                <div class="stat-value income">Rp 0</div>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn active">Operasional Parkir</button>
+            <button class="tab-btn">Rincian Transaksi</button>
+            <button class="tab-btn">Pengaturan Tarif & Slot</button>
+        </div>
+
+        <div class="content-grid">
+            <div class="form-card">
+                <h3 class="section-title">Kendaraan Masuk</h3>
+                <div class="form-group">
+                    <label>Plat Nomor</label>
+                    <input type="text" placeholder="CONTOH: B 1234 XYZ">
+                </div>
+                <div class="form-group">
+                    <label>Jenis Kendaraan</label>
+                    <select>
+                        <option selected>Motor</option>
+                        <option>Mobil</option>
+                        <option>Truk</option>
+                        <option>Sepeda</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Catatan (Opsional)</label>
+                    <textarea rows="2" placeholder="Contoh: Helm dititip / Area B"></textarea>
+                </div>
+            </div>
+
+            <div class="parking-table-card">
+                <div class="table-header">
+                    <h3 class="section-title">Kendaraan Sedang Parkir</h3>
+                    <input type="text" class="search-input" placeholder="Cari plat atau kode tiket...">
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>TIKET</th>
+                            <th>PLAT NOMOR</th>
+                            <th>JENIS</th>
+                            <th>WAKTU MASUK</th>
+                            <th>DURASI</th>
+                            <th>AKSI</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>PKR-A3QS</td>
+                            <td><strong>D 20843 DF</strong></td>
+                            <td><span class="badge-truk">Truk</span></td>
+                            <td>18/11/2026, 08.25</td>
+                            <td>0j 2m (Rp 8.000)</td>
+                            <td>
+                                <button class="btn-keluar">Keluar</button>
+                                <button class="btn-tiket">Tiket</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
